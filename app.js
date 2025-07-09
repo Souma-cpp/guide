@@ -10,10 +10,10 @@ import connectPgSimple from "connect-pg-simple";
 import passport from "./passport-config.js";
 import cookieParser from "cookie-parser";
 import sql from "./db.js"; // ✅ Supabase connection
+const port = process.env.PORT || 3000;
 
 dotenv.config();
 const app = express();
-const port = 3000;
 const api_key = process.env.YT_API_KEY;
 const saltRounds = 10;
 const PgSession = connectPgSimple(session);
