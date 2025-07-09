@@ -1,0 +1,32 @@
+{
+  "name": "guide",
+  "version": "1.0.0",
+  "description": "this is basically a guide for learners that sort the topics and the resources one by one so that the user can learn the desired topic(s) one by one with ease without any hassle",
+  "license": "ISC",
+  "author": "SoumadityaDey",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.11",
+    "axios": "^1.10.0",
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.0",
+    "connect-pg-simple": "^10.0.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.0.1",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
+    "pg": "^8.16.3",
+    "postgres": "^3.4.7",
+    "sentiment": "^5.0.2",
+    "tailwindcss": "^4.1.11",
+    "uuid": "^11.1.0",
+    "uuid4": "^2.0.3"
+  }
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Results for <%= topic %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body class="bg-[#0f0f0f] text-white px-4 sm:px-6 py-10 font-sans">
+    <h1
+      class="text-3xl sm:text-5xl font-extrabold text-center mb-10 leading-tight"
+    >
+      🔍 Best Videos for <span class="text-pink-500">"<%= topic %>"</span>
+    </h1>
+
+    <% if (!user && searchCount >= 2) { %>
+    <div class="text-red-500 font-semibold text-center mb-6">
+      ⚠️ Please log in to continue searching more content.
+    </div>
+    <% } %>
+
+    <div
+      class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+    >
+      <% videos.forEach((video, index) => { %>
+      <a
+        href="/video/<%= video.videoId %>"
+        class="relative bg-[#1c1c1e] hover:bg-[#252527] transition-all duration-300 rounded-2xl shadow-lg border border-gray-700 overflow-hidden flex flex-col"
+      >
+        <% if (video.score >= 10000) { /* Customize threshold as needed */ %>
+        <div
+          class="absolute top-0 left-0 w-full bg-green-600 text-white text-xs font-bold py-1 text-center z-20"
+        >
+          🌟 Recommended by Us
+        </div>
+        <% } %>
+
+        <img
+          src="<%= video.thumbnail %>"
+          alt="Thumbnail"
+          class="w-full h-44 object-cover mt-6"
+        />
+
+        <div class="p-4 flex flex-col justify-between flex-grow">
+          <h2 class="font-semibold text-base sm:text-lg line-clamp-2 mb-1">
+            <%= video.title %>
+          </h2>
+
+          <p class="text-gray-400 text-xs mb-1">
+            👁️ <%= Number(video.views).toLocaleString() %> | 👍 <%=
+            Number(video.likes).toLocaleString() %> | 💬 <%=
+            Number(video.commentCount).toLocaleString() %>
+          </p>
+
+          <p class="text-green-400 text-sm font-semibold mb-2">
+            Score: <%= Math.round(video.score) %>
+          </p>
+
+          <p
+            class="text-gray-300 text-sm line-clamp-3 mb-4"
+            title="<%= video.description %>"
+          >
+            <%= video.description.length > 100 ? video.description.slice(0, 100)
+            + "..." : video.description %>
+          </p>
+
+          <div
+            class="w-full text-center py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all font-medium text-white mt-auto"
+          >
+            ▶️ View Details
+          </div>
+        </div>
+      </a>
+      <% }) %>
+    </div>
+
+    <!-- Pagination -->
+    <div class="flex flex-wrap justify-center gap-2 mt-10">
+      <% videos.forEach((_, i) => { %>
+      <a
+        href="#item<%= i + 1 %>"
+        class="w-8 h-8 flex items-center justify-center rounded-md text-sm font-semibold bg-gray-700 hover:bg-white hover:text-black transition"
+      >
+        <%= i + 1 %>
+      </a>
+      <% }) %>
+    </div>
+
+    <!-- Back Button -->
+    <form action="/" class="w-full mt-10 flex justify-center items-center">
+      <button
+        class="px-5 py-2 rounded-md bg-gray-700 hover:bg-gray-900 transition text-white font-semibold"
+      >
+        ⬅️ Go back
+      </button>
+    </form>
+  </body>
+</html>

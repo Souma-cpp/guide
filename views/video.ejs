@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= video.title %> | Video</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body
+    class="bg-gray-900 text-white min-h-screen flex items-center justify-center px-4 py-6"
+  >
+    <div
+      class="max-w-6xl w-full bg-gray-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row"
+    >
+      <!-- Thumbnail -->
+      <div class="md:w-1/2 w-full">
+        <img
+          src="<%= video.thumbnail %>"
+          alt="Video Thumbnail"
+          class="w-full h-full object-cover"
+        />
+      </div>
+
+      <!-- Right Side -->
+      <div class="md:w-1/2 w-full p-6 flex flex-col justify-between">
+        <div class="space-y-4">
+          <h1
+            class="text-3xl md:text-4xl font-extrabold text-blue-400 leading-snug tracking-tight"
+          >
+            <%= video.title %>
+          </h1>
+
+          <div class="text-gray-300 text-md md:text-base space-y-2">
+            <p class="mt-8">
+              <span class="font-semibold text-white">Views:</span>
+              <span class="stat" data-value="<%= video.views %>"></span>
+            </p>
+            <p class="mt-8">
+              <span class="font-semibold text-white">Likes:</span>
+              <span class="stat" data-value="<%= video.likes %>"></span>
+            </p>
+            <p class="mt-8">
+              <span class="font-semibold text-white">Comments:</span>
+              <span class="stat" data-value="<%= video.commentCount %>"></span>
+            </p>
+            <p class="mt-8">
+              <span class="font-semibold text-white">Channel:</span> <%=
+              video.channelTitle %>
+            </p>
+            <% if (video.channelDescription) { %>
+            <p
+              class="text-sm italic text-gray-400 border-l-4 border-blue-500 pl-3"
+            >
+              <%= video.channelDescription.substring(0, 300) %><%=
+              video.channelDescription.length > 300 ? "..." : "" %>
+            </p>
+            <% } %>
+            <p>
+              <span class="font-semibold text-white">Published:</span> <%= new
+              Date(video.publishedAt).toDateString() %>
+            </p>
+          </div>
+        </div>
+
+        <a
+          href="https://www.youtube.com/watch?v=<%= video.videoId %>"
+          target="_blank"
+          class="mt-6 bg-blue-600 hover:bg-blue-700 transition-colors px-6 py-3 rounded-lg font-bold text-white text-center text-lg shadow"
+        >
+          ▶️ Watch on YouTube
+        </a>
+      </div>
+    </div>
+
+    <!-- Format numbers like 120K, 1.3M etc -->
+    <script>
+      function formatNumber(num) {
+        num = Number(num);
+        if (isNaN(num)) return num;
+        if (num >= 1e6) return (num / 1e6).toFixed(1) + "M";
+        if (num >= 1e3) return (num / 1e3).toFixed(1) + "K";
+        return num;
+      }
+
+      document.querySelectorAll(".stat").forEach((el) => {
+        const raw = el.getAttribute("data-value");
+        el.textContent = formatNumber(raw);
+      });
+    </script>
+  </body>
+</html>

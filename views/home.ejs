@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hero Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" />
+    <style>
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .fade-in-up {
+        animation: fadeInUp 0.8s ease-out forwards;
+      }
+
+      .fade-delay-1 {
+        animation-delay: 0.3s;
+      }
+      .fade-delay-2 {
+        animation-delay: 0.6s;
+      }
+      .fade-delay-3 {
+        animation-delay: 0.9s;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-white min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-gray-900 z-10">
+      <nav
+        class="flex items-center justify-between p-6 lg:px-8"
+        aria-label="Global"
+      >
+        <!-- Logo -->
+        <div class="flex lg:flex-1">
+          <a href="/" class="-m-1.5 p-1.5">
+            <img
+              class="h-8 w-auto"
+              src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
+              alt="Logo"
+            />
+          </a>
+        </div>
+
+        <!-- Desktop Links -->
+        <div class="hidden lg:flex lg:gap-x-12"></div>
+
+        <!-- Auth Section -->
+        <!-- Auth Section -->
+        <!-- Auth Section -->
+        <div class="flex items-center justify-end lg:flex-1 relative">
+          <% if (user && user.avatar) { %>
+          <!-- Avatar + Dropdown -->
+          <div class="relative" id="avatarDropdown">
+            <img
+              src="<%= user.avatar %>"
+              alt="Avatar"
+              class="w-9 h-9 rounded-full border-2 border-indigo-500 cursor-pointer"
+              id="avatarIcon"
+            />
+            <div
+              id="dropdownMenu"
+              class="hidden absolute right-0 top-full mt-2 w-44 bg-gray-800 rounded-lg shadow-xl z-50"
+            >
+              <div
+                class="px-4 py-2 border-b border-gray-700 text-sm text-gray-300"
+              >
+                Signed in as<br /><strong><%= user.name %></strong>
+              </div>
+              <a
+                href="/profile"
+                class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700"
+                >👤 Profile</a
+              >
+              <a
+                href="/my-searches"
+                class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700"
+                >📄 My Searches</a
+              >
+              <form action="/logout" method="POST">
+                <button
+                  type="submit"
+                  class="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-gray-700"
+                >
+                  🚪 Logout
+                </button>
+              </form>
+            </div>
+          </div>
+          <% } else if (user) { %>
+          <!-- Logout Only (No Avatar) -->
+          <form method="POST" action="/logout">
+            <button
+              type="submit"
+              class="text-md font-semibold text-white hover:text-red-400 mt-1"
+            >
+              Logout
+            </button>
+          </form>
+          <% } else { %>
+          <!-- Not Logged In -->
+          <a
+            href="/login"
+            class="text-sm font-semibold text-white hover:text-indigo-400"
+          >
+            Log in <span>&rarr;</span>
+          </a>
+          <% } %>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex flex-col items-center px-6 lg:px-8">
+      <!-- Search -->
+      <form
+        method="POST"
+        action="/result"
+        class="w-full max-w-xl mt-10 mb-6 relative"
+      >
+        <input
+          type="text"
+          name="topic"
+          placeholder="Search for something amazing..."
+          class="w-full rounded-full border border-gray-600 bg-gray-800 py-3 pl-6 pr-14 text-white placeholder-gray-400 shadow-md focus:ring-2 focus:ring-indigo-500 outline-none transition"
+        />
+        <button
+          type="submit"
+          class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-full text-sm font-medium"
+        >
+          Search
+        </button>
+      </form>
+
+      <!-- Hero Text -->
+      <div class="text-center max-w-2xl fade-in-up fade-delay-1 opacity-0">
+        <h1 class="text-4xl sm:text-6xl font-bold mt-4">
+          Find the best resources without hassle
+        </h1>
+        <p
+          class="mt-4 sm:mt-6 text-lg text-gray-400 fade-in-up fade-delay-2 opacity-0"
+        >
+          Get started with the free plan, upgrade later.
+        </p>
+        <div
+          class="mt-6 sm:mt-8 flex justify-center gap-x-6 fade-in-up fade-delay-3 opacity-0"
+        >
+          <a
+            href="/register"
+            class="bg-indigo-600 hover:bg-indigo-500 px-4 py-2 rounded text-sm font-semibold text-white"
+          >
+            Get started
+          </a>
+          <a
+            href="/learn-more"
+            class="text-lg font-semibold text-white hover:underline m-2"
+          >
+            Learn more <span>&rarr;</span>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer
+      class="bg-gray-900 text-gray-400 py-6 border-t border-white/10 text-sm"
+    >
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4"
+      >
+        <p>&copy; 2025 Guide. All rights reserved.</p>
+        <div class="flex gap-x-6">
+          <a href="/privacy" class="hover:text-white">Privacy</a>
+          <a href="/terms" class="hover:text-white">Terms</a>
+          <a href="/settings" class="hover:text-white">Contact</a>
+        </div>
+      </div>
+    </footer>
+    <script>
+      const avatarIcon = document.getElementById("avatarIcon");
+      const dropdown = document.getElementById("dropdownMenu");
+      const wrapper = document.getElementById("avatarDropdown");
+
+      let hoverTimeout;
+
+      function showDropdown() {
+        clearTimeout(hoverTimeout);
+        dropdown.classList.remove("hidden");
+      }
+
+      function hideDropdown() {
+        hoverTimeout = setTimeout(() => {
+          dropdown.classList.add("hidden");
+        }, 200);
+      }
+
+      wrapper.addEventListener("mouseenter", showDropdown);
+      wrapper.addEventListener("mouseleave", hideDropdown);
+    </script>
+  </body>
+</html>
